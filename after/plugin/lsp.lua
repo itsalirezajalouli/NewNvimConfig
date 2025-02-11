@@ -35,6 +35,14 @@ lspconfig.pyright.setup({
 })
 
 lspconfig.rust_analyzer.setup({
-  on_attach = on_attach,
+    on_attach = function(client, bufnr)
+        -- Optional: Configure keymaps for LSP functionality
+        local opts = { noremap = true, silent = true }
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        vim.keymap.set("n", "E", function() vim.diagnostic.open_float() end, opts)
+    end,
+    capabilities = require('cmp_nvim_lsp').default_capabilities(), -- Add if using completion
 })
 

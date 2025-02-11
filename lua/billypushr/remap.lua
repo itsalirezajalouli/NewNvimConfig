@@ -5,8 +5,14 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 
 -- Moving multiple lines
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "<M-j>", ":m .+1<CR>==")
+vim.keymap.set("n", "<M-k>", ":m .-2<CR>==")
+vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv")
+
+-- Stays in visual mode after tabing
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
 -- Append to previous line
 vim.keymap.set("n", "J", "mzJ`z")
@@ -28,3 +34,12 @@ vim.keymap.set("n", "Y", "\"+Y")
 -- Cuting
 vim.keymap.set("n", "d", "\"+d")
 vim.keymap.set("v", "d", "\"+d")
+
+-- Commenting
+vim.keymap.set("n", "<leader>/", function()
+    require("Comment.api").toggle.linewise.current()
+end)
+vim.keymap.set("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
+
+-- Open terminal in current file path
+vim.keymap.set('n', '<leader>t', ':cd %:p:h<CR>:!', { noremap = true })
