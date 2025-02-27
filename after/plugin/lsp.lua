@@ -40,9 +40,17 @@ lspconfig.rust_analyzer.setup({
         local opts = { noremap = true, silent = true }
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ra', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
         vim.keymap.set("n", "E", function() vim.diagnostic.open_float() end, opts)
     end,
     capabilities = require('cmp_nvim_lsp').default_capabilities(), -- Add if using completion
 })
 
+-- lsp config for godot
+lspconfig.gdscript.setup({
+    on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
+vim.api.nvim_create_user_command("Godot", function() vim.fn.jobstart("godot",
+    { detach = true })  end, {})

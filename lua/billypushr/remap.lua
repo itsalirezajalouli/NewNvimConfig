@@ -43,3 +43,5 @@ vim.keymap.set("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.li
 
 -- Open terminal in current file path
 vim.keymap.set('n', '<leader>t', ':cd %:p:h<CR>:!', { noremap = true })
+
+

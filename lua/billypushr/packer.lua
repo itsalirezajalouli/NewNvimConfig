@@ -30,6 +30,9 @@ return require('packer').startup(function(use)
 	use('mbbill/undotree')
 	use('tpope/vim-fugitive')
 
+    -- Zen mode
+    use('folke/zen-mode.nvim')
+
 	-- lsp
 	use {
 		'VonHeikemen/lsp-zero.nvim',
@@ -55,4 +58,5 @@ return require('packer').startup(function(use)
             {'numToStr/Comment.nvim'}
 		}
 	}
+
 end)
