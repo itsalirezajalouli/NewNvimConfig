@@ -4,6 +4,10 @@ i literally couldn't even handle simple lsp stuff in less than one second and
 honestly we use neovim for speed so i made a new one from scratch.
 
 ## Cool stuff:
+- Remapings (only in insert mode):
+    - numbers -> symbols (reverted)
+    - ; -> :
+    - - -> _
 - Simple key-bindings:
     - space + e: to explore files
     - space + t: opens terminal in command bar for 1 command

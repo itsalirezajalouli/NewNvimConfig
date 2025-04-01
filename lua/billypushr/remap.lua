@@ -22,6 +22,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set('n', 'gg', 'ggzz', { noremap = true })
+vim.keymap.set('n', 'G', 'Gzz', { noremap = true })
 
 -- Pasting without loosing the register to new thing
 vim.keymap.set("x", "<leader>p", "\"_dP")
@@ -44,4 +46,43 @@ vim.keymap.set("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.li
 -- Open terminal in current file path
 vim.keymap.set('n', '<leader>t', ':cd %:p:h<CR>:!', { noremap = true })
 
+local opts = { noremap = true, silent = true }
 
+-- Center screen when pressing Enter in insert mode
+vim.api.nvim_set_keymap('i', '<CR>', '<CR><C-o>zz', opts)
+
+-- Lua version for init.lua
+local keymap = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+-- Map each shift + number to the corresponding number
+keymap('i', '!', '1', opts)
+keymap('i', '@', '2', opts)
+keymap('i', '#', '3', opts)
+keymap('i', '$', '4', opts)
+keymap('i', '%', '5', opts)
+keymap('i', '^', '6', opts)
+keymap('i', '&', '7', opts)
+keymap('i', '*', '8', opts)
+keymap('i', '(', '9', opts)
+keymap('i', ')', '0', opts)
+
+-- Map the normal number keys to behave normally
+keymap('i', '1', '!', opts)
+keymap('i', '2', '@', opts)
+keymap('i', '3', '#', opts)
+keymap('i', '4', '$', opts)
+keymap('i', '5', '%', opts)
+keymap('i', '6', '^', opts)
+keymap('i', '7', '&', opts)
+keymap('i', '8', '*', opts)
+keymap('i', '9', '(', opts)
+keymap('i', '0', ')', opts)
+
+
+keymap('i', '_', '-', opts)
+keymap('i', '-', '_', opts)
+keymap('i', ':', ';', opts)
+keymap('n', ':', ';', opts)
+keymap('i', ';', ':', opts)
+keymap('n', ';', ':', opts)
