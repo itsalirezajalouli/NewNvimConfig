@@ -86,3 +86,26 @@ keymap('i', ':', ';', opts)
 keymap('n', ':', ';', opts)
 keymap('i', ';', ':', opts)
 keymap('n', ';', ':', opts)
+
+-- Show signature help when '9' (mapped to '(') is typed
+vim.keymap.set('i', '9', function()
+  -- Insert the '(' character
+  vim.api.nvim_feedkeys('(', 'n', false)
+  -- Call signature help after a short delay to ensure the LSP server responds to the new context
+  vim.defer_fn(function()
+    vim.lsp.buf.signature_help()
+  end, 1)
+end, { noremap = true, silent = true })
+
+-- Show signature help when ',' is typed or right after it
+vim.api.nvim_create_autocmd("InsertCharPre", {
+  pattern = "*",
+  callback = function()
+    local prev_char = vim.fn.getline('.'):sub(vim.fn.col('.') - 1, vim.fn.col('.') - 1)
+    if vim.v.char == ',' or prev_char == ',' then
+      vim.defer_fn(function()
+        vim.lsp.buf.signature_help()
+      end, 1)
+    end
+  end,
+})
