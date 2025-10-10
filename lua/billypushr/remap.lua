@@ -77,6 +77,8 @@ keymap('n', '&', '7', opts)
 keymap('n', '*', '8', opts)
 keymap('n', '(', '9', opts)
 keymap('n', ')', '0', opts)
+keymap('n', 'r', 'R', opts)
+keymap('n', 'R', 'r', opts)
 
 -- Map the normal number keys to behave normally
 keymap('i', '1', '!', opts)
@@ -100,23 +102,32 @@ keymap('n', '7', '&', opts)
 keymap('n', '8', '*', opts)
 keymap('n', '9', '(', opts)
 keymap('n', '0', ')', opts)
+keymap('n', '(', '9', opts)
+keymap('n', ')', '0', opts)
 
-keymap('i', '_', '-', opts)
 keymap('i', '-', '_', opts)
-keymap('i', ':', ';', opts)
+keymap('i', '_', '-', opts)
+keymap('i', ':', '@', opts)
+keymap('i', '2', ':', opts)
+-- keymap('i', ':', ';', opts)
+-- keymap('i', ';', ':', opts)
 keymap('n', ':', ';', opts)
-keymap('i', ';', ':', opts)
 keymap('n', ';', ':', opts)
 
--- Show signature help when '9' (mapped to '(') is typed
+-- Show signature help when '9' (mapped to '(') is typed AND handle auto-pairing
 vim.keymap.set('i', '9', function()
-  -- Insert the '(' character
-  vim.api.nvim_feedkeys('(', 'n', false)
+  -- Insert the '()' pair and position cursor between them
+  local keys = vim.api.nvim_replace_termcodes('()<Left>', true, false, true)
+  vim.api.nvim_feedkeys(keys, 'n', false)
   -- Call signature help after a short delay to ensure the LSP server responds to the new context
   vim.defer_fn(function()
     vim.lsp.buf.signature_help()
   end, 1)
 end, { noremap = true, silent = true })
+
+-- Also make sure Shift+9 gives you the actual number 9
+vim.keymap.set('i', '(', '9', { noremap = true, silent = true })
+vim.keymap.set('i', '[', '{', { noremap = true, silent = true })
 
 -- Show signature help when ',' is typed or right after it
 vim.api.nvim_create_autocmd("InsertCharPre", {
@@ -130,3 +141,55 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
     end
   end,
 })
+-- Simple auto-pairing configuration
+local opts = { noremap = true, silent = true }
+
+-- Function to handle auto-pairing with cursor positioning
+local function autopair(open, close)
+  return function()
+    local keys = vim.api.nvim_replace_termcodes(open .. close .. '<Left>', true, false, true)
+    vim.api.nvim_feedkeys(keys, 'n', false)
+  end
+end
+
+-- Function to handle smart closing (skip if next char is the closing pair)
+local function smart_close(char)
+  return function()
+    local col = vim.fn.col('.')
+    local line = vim.fn.getline('.')
+    local next_char = line:sub(col, col)
+    
+    if next_char == char then
+      -- Skip the existing closing character
+      local keys = vim.api.nvim_replace_termcodes('<Right>', true, false, true)
+      vim.api.nvim_feedkeys(keys, 'n', false)
+    else
+      -- Insert the character normally
+      local keys = vim.api.nvim_replace_termcodes(char, true, false, true)
+      vim.api.nvim_feedkeys(keys, 'n', false)
+    end
+  end
+end
+
+-- Replace { with [ and } with ]
+vim.keymap.set('i', '{', '[', opts)
+vim.keymap.set('i', '}', ']', opts)
+
+-- Auto-pairing for brackets (using the original keys)
+vim.keymap.set('i', '{', autopair('[', ']'), opts)
+vim.keymap.set('i', '[', autopair('{', '}'), opts)
+vim.keymap.set('i', '<', autopair('<', '>'), opts)
+vim.keymap.set('i', '5', autopair('%', '%'), opts)
+vim.keymap.set('i', '}', smart_close(']'), opts)
+vim.keymap.set('i', ']', smart_close('}'), opts)
+
+-- Auto-pairing for quotes
+vim.keymap.set('i', '"', function()
+  local keys = vim.api.nvim_replace_termcodes('"",<Left><Left>', true, false, true)
+  vim.api.nvim_feedkeys(keys, 'n', false)
+end, opts)
+
+vim.keymap.set('i', "'", function()
+  local keys = vim.api.nvim_replace_termcodes("'',<Left><Left>", true, false, true)
+  vim.api.nvim_feedkeys(keys, 'n', false)
+end, opts)

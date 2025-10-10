@@ -54,3 +54,9 @@ lspconfig.gdscript.setup({
 })
 vim.api.nvim_create_user_command("Godot", function() vim.fn.jobstart("godot",
     { detach = true })  end, {})
+
+-- Ruby LSP configuration
+lspconfig.ruby_lsp.setup({
+    on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})

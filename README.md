@@ -29,3 +29,4 @@ honestly we use neovim for speed so i made a new one from scratch.
     - space + fg: search through git
 - Fugitive:
     - space + gg: for git stuff 
+
