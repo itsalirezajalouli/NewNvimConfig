@@ -83,6 +83,19 @@ return require('packer').startup(function(use)
     -- Ruby-specific plugins (add these use statements)
     use 'vim-ruby/vim-ruby'
     use 'tpope/vim-endwise' -- Auto-adds 'end' in Ruby
+
+    -- Dev-docs
+    
+    use {
+      "luckasRanarison/nvim-devdocs",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        "nvim-treesitter/nvim-treesitter",
+      },
+      config = function()
+        require("nvim-devdocs").setup()
+      end
+    }
     
 end)
-

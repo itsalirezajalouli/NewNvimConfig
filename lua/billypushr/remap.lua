@@ -193,3 +193,7 @@ vim.keymap.set('i', "'", function()
   local keys = vim.api.nvim_replace_termcodes("'',<Left><Left>", true, false, true)
   vim.api.nvim_feedkeys(keys, 'n', false)
 end, opts)
+
+-- Dev docs
+vim.keymap.set('n', '<leader>dd', vim.cmd.DevdocsOpenCurrent,
+                { noremap = true })

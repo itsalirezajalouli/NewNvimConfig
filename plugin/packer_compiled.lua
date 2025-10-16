@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/billypushr/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?.lua;/home/billypushr/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?/init.lua;/home/billypushr/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?.lua;/home/billypushr/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/billypushr/.cache/nvim/packer_hererocks/2.1.1741730670/lib/lua/5.1/?.so"
+local package_path_str = "/home/billypushr/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?.lua;/home/billypushr/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?/init.lua;/home/billypushr/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?.lua;/home/billypushr/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/billypushr/.cache/nvim/packer_hererocks/2.1.1753364724/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -139,6 +139,12 @@ _G.packer_plugins = {
     path = "/home/billypushr/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-devdocs"] = {
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17nvim-devdocs\frequire\0" },
+    loaded = true,
+    path = "/home/billypushr/.local/share/nvim/site/pack/packer/start/nvim-devdocs",
+    url = "https://github.com/luckasRanarison/nvim-devdocs"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/billypushr/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -165,7 +171,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["render-markdown"] = {
-    config = { "\27LJ\2\n�\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\3\0005\4\4\0=\4\5\0035\4\6\0=\4\a\3=\3\t\2B\0\2\1K\0\1\0\rcheckbox\1\0\1\rcheckbox\0\fchecked\1\0\2\ticon\b●\14highlight\26RenderMarkdownChecked\14unchecked\1\0\2\ticon\b○\14highlight\28RenderMarkdownUnchecked\1\0\3\fchecked\0\fenabled\2\14unchecked\0\nsetup\20render-markdown\frequire\0" },
+    config = { "\27LJ\2\n�\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\3\0005\4\4\0=\4\5\0035\4\6\0=\4\a\3=\3\t\2B\0\2\1K\0\1\0\rcheckbox\1\0\1\rcheckbox\0\fchecked\1\0\2\ticon\b●\14highlight\26RenderMarkdownChecked\14unchecked\1\0\2\ticon\b○\14highlight\28RenderMarkdownUnchecked\1\0\3\fenabled\2\fchecked\0\14unchecked\0\nsetup\20render-markdown\frequire\0" },
     load_after = {},
     loaded = true,
     needs_bufread = false,
@@ -215,13 +221,17 @@ time([[Defining packer_plugins]], false)
 time([[Config for rose-pine]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
 time([[Config for rose-pine]], false)
+-- Config for: nvim-devdocs
+time([[Config for nvim-devdocs]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17nvim-devdocs\frequire\0", "config", "nvim-devdocs")
+time([[Config for nvim-devdocs]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-treesitter ]]
 vim.cmd [[ packadd render-markdown ]]
 
 -- Config for: render-markdown
-try_loadstring("\27LJ\2\n�\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\3\0005\4\4\0=\4\5\0035\4\6\0=\4\a\3=\3\t\2B\0\2\1K\0\1\0\rcheckbox\1\0\1\rcheckbox\0\fchecked\1\0\2\ticon\b●\14highlight\26RenderMarkdownChecked\14unchecked\1\0\2\ticon\b○\14highlight\28RenderMarkdownUnchecked\1\0\3\fchecked\0\fenabled\2\14unchecked\0\nsetup\20render-markdown\frequire\0", "config", "render-markdown")
+try_loadstring("\27LJ\2\n�\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\3\0005\4\4\0=\4\5\0035\4\6\0=\4\a\3=\3\t\2B\0\2\1K\0\1\0\rcheckbox\1\0\1\rcheckbox\0\fchecked\1\0\2\ticon\b●\14highlight\26RenderMarkdownChecked\14unchecked\1\0\2\ticon\b○\14highlight\28RenderMarkdownUnchecked\1\0\3\fenabled\2\fchecked\0\14unchecked\0\nsetup\20render-markdown\frequire\0", "config", "render-markdown")
 
 time([[Sequenced loading]], false)
 
